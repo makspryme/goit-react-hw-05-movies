@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useSearchParams, Link, useLocation } from 'react-router-dom';
 import defaultImg from '../../img/default-img.jpg';
 
@@ -7,6 +7,8 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const movieId = searchParams.get('movieId') ?? '';
+
+  const movieIdRef = useRef(movieId ?? '');
 
   const fetchMovies = async () => {
     return await fetch(
@@ -19,13 +21,9 @@ const Movies = () => {
       .catch(err => alert('Oops error, please reload page'));
   };
 
-  useEffect(() => {
-    if (movieId !== '') {
-      fetchMovies();
-    }
-
-    return;
-  }, []);
+  if (movieIdRef !== '') {
+    fetchMovies();
+  }
 
   function onSubmit(e) {
     e.preventDefault();
