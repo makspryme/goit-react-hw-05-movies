@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams, Link, useLocation } from 'react-router-dom';
 import defaultImg from '../../img/default-img.jpg';
 
@@ -7,23 +7,32 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const movieId = searchParams.get('movieId') ?? '';
-  console.log(movieId);
 
-  function onSubmit(e) {
-    e.preventDefault();
-    fetch(
+  const fetchMovies = async () => {
+    return await fetch(
       `https://api.themoviedb.org/3/search/movie?query=${movieId}&include_adult=false&language=en-US&page=1&api_key=caed7e2ebd11bebde344d1e5386bdf39`
     )
       .then(r => r.json())
       .then(r => {
-        console.log(r);
         setResults(r.results);
       })
       .catch(err => alert('Oops error, please reload page'));
+  };
+
+  useEffect(() => {
+    if (movieId !== '') {
+      fetchMovies();
+    }
+
+    return;
+  }, []);
+
+  function onSubmit(e) {
+    e.preventDefault();
+    fetchMovies();
   }
 
   const location = useLocation();
-  console.log(location);
 
   return (
     <>
@@ -54,7 +63,6 @@ const Movies = () => {
       >
         {results.length > 0 &&
           results.map(film => {
-            console.log('FILMS');
             return (
               <li
                 key={film.id}

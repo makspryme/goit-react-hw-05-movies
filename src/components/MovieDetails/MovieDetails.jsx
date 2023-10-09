@@ -1,5 +1,5 @@
 import defaultImg from '../../img/default-img.jpg';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Outlet, useParams, NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -30,8 +30,11 @@ const StyledLinkBack = styled(NavLink)`
 const MovieDetails = () => {
   const [aboutFilm, setAboutFilm] = useState(null);
 
+  const location = useLocation();
+
+  const backLinkLocationUrl = useRef(location.state?.from ?? `/movie`);
+
   const param = useParams();
-  console.log(param.movieId);
 
   useEffect(() => {
     fetch(
@@ -39,17 +42,14 @@ const MovieDetails = () => {
     )
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         setAboutFilm(response);
       })
       .catch(err => alert('Oops error, please reload page'));
   }, [param.movieId]);
 
-  const location = useLocation();
-
   return (
     <section>
-      <StyledLinkBack to={location.state?.from ?? `/movie`}>
+      <StyledLinkBack to={backLinkLocationUrl.current ?? `/movie`}>
         ← back
       </StyledLinkBack>
       {aboutFilm && (

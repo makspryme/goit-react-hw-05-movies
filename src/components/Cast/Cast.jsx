@@ -12,7 +12,6 @@ const Cast = () => {
     )
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         setCasts(response);
       })
       .catch(err => alert('Oops error, please reload page'));

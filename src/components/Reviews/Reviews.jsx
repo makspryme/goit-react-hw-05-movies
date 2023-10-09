@@ -11,7 +11,6 @@ const Reviews = () => {
     )
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         setReviews(response);
       })
       .catch(err => alert('Oops error, please reload page'));

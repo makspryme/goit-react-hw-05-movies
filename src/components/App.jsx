@@ -1,6 +1,5 @@
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
-import styled from 'styled-components';
 
 import TopFilms from './TopFilms/TopFilms';
 import { useEffect } from 'react';
@@ -8,17 +7,7 @@ import Movies from './Movies/Movies';
 import MovieDetails from './MovieDetails/MovieDetails';
 import Cast from './Cast/Cast';
 import Reviews from './Reviews/Reviews';
-import css from './App.module.css';
-
-const StyledLink = styled(NavLink)`
-  color: black;
-  text-decoration: none;
-  font-size: 20px;
-
-  &.active {
-    color: orange;
-  }
-`;
+import SharedLayout from './SharedLayout/SharedLayout';
 
 const App = () => {
   const [topFilms, setTopFilms] = useState({});
@@ -32,27 +21,16 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <nav className={css.navigation}>
-        <ul>
-          <li>
-            <StyledLink to="/">Home</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/movie">Movies</StyledLink>
-          </li>
-        </ul>
-      </nav>
-
-      <Routes>
-        <Route path="/" index element={<TopFilms topFilms={topFilms} />} />
-        <Route path="/movie" element={<Movies />} />
-        <Route path="/movie/:movieId" element={<MovieDetails />}>
+    <Routes>
+      <Route path="/" element={<SharedLayout />}>
+        <Route index element={<TopFilms topFilms={topFilms} />} />
+        <Route path="movie" element={<Movies />} />
+        <Route path="movie/:movieId" element={<MovieDetails />}>
           <Route path="cast" element={<Cast />} />
           <Route path="reviews" element={<Reviews />} />
         </Route>
-      </Routes>
-    </div>
+      </Route>
+    </Routes>
   );
 };
 

@@ -1,9 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 
 const TopFilms = ({ topFilms }) => {
-  console.log(topFilms.page);
-  console.log(topFilms);
-
   const location = useLocation();
   return (
     <section>
