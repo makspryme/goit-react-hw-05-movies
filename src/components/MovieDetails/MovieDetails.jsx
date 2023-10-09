@@ -1,5 +1,5 @@
 import defaultImg from '../../img/default-img.jpg';
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Outlet, useParams, NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -73,7 +73,9 @@ const MovieDetails = () => {
 
       <StyledLink to="cast">Cast</StyledLink>
       <StyledLink to="reviews">Reviews</StyledLink>
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </section>
   );
 };

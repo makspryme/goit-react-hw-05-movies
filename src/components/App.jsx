@@ -1,13 +1,18 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
+import { lazy, useState, useEffect } from 'react';
 
-import TopFilms from './TopFilms/TopFilms';
-import { useEffect } from 'react';
-import Movies from './Movies/Movies';
-import MovieDetails from './MovieDetails/MovieDetails';
-import Cast from './Cast/Cast';
-import Reviews from './Reviews/Reviews';
+// import Home from './Home/Home';
+// import Movies from './Movies/Movies';
+// import MovieDetails from './MovieDetails/MovieDetails';
+// import Cast from './Cast/Cast';
+// import Reviews from './Reviews/Reviews';
 import SharedLayout from './SharedLayout/SharedLayout';
+
+const Home = lazy(() => import('./Home/Home'));
+const Movies = lazy(() => import('./Movies/Movies'));
+const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
+const Cast = lazy(() => import('./Cast/Cast'));
+const Reviews = lazy(() => import('./Reviews/Reviews'));
 
 const App = () => {
   const [topFilms, setTopFilms] = useState({});
@@ -23,7 +28,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
-        <Route index element={<TopFilms topFilms={topFilms} />} />
+        <Route index element={<Home topFilms={topFilms} />} />
         <Route path="movie" element={<Movies />} />
         <Route path="movie/:movieId" element={<MovieDetails />}>
           <Route path="cast" element={<Cast />} />

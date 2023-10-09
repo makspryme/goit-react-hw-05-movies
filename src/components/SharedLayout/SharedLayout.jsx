@@ -2,6 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 
 import css from '../App.module.css';
 import styled from 'styled-components';
+import { Suspense } from 'react';
 
 const SharedLayout = () => {
   const StyledLink = styled(NavLink)`
@@ -26,7 +27,9 @@ const SharedLayout = () => {
           </li>
         </ul>
       </nav>
-      <Outlet />
+      <Suspense>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

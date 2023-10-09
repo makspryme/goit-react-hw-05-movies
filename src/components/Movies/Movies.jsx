@@ -21,8 +21,9 @@ const Movies = () => {
       .catch(err => alert('Oops error, please reload page'));
   };
 
-  if (movieIdRef !== '') {
+  if (movieIdRef.current !== '') {
     fetchMovies();
+    movieIdRef.current = '';
   }
 
   function onSubmit(e) {
