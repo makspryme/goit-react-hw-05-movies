@@ -17,14 +17,24 @@ const Cast = () => {
       .catch(err => alert('Oops error, please reload page'));
   }, [param.movieId]);
 
+  console.log(casts)
+
   return (
     <section>
       <ul>
         {casts?.cast.length > 0 ? (
-          casts.cast.map(({ id, name, character }) => {
+          casts.cast.map(({ id, name, character, profile_path }) => {
             return (
               <li key={id}>
-                <img src={defaultImg} width={70} alt="" />
+                <img
+                  src={
+                    profile_path
+                      ? `https://image.tmdb.org/t/p/w200${profile_path}`
+                      : defaultImg
+                  }
+                  width={70}
+                  alt=""
+                />
                 <h3>name: {name}</h3>
                 <p>character: {character}</p>
               </li>

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import { useSearchParams, Link, useLocation } from 'react-router-dom';
-import defaultImg from '../../img/default-img.jpg';
+import { useSearchParams, useLocation } from 'react-router-dom';
+import ApiListMovies from 'components/ApiListMovies/ApiListMovies';
 
 const Movies = () => {
   const [results, setResults] = useState([]);
@@ -51,45 +51,7 @@ const Movies = () => {
         <button type="submit">Search</button>
       </form>
 
-      <ul
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          marginLeft: 30,
-          marginRight: 30,
-          marginTop: 50,
-        }}
-      >
-        {results.length > 0 &&
-          results.map(film => {
-            return (
-              <li
-                key={film.id}
-                style={{
-                  width: 225,
-                  marginBottom: 50,
-                  marginLeft: 30,
-                  marginRight: 30,
-                }}
-              >
-                <div style={{ width: 150, height: 225 }}>
-                  <img
-                    src={
-                      film.poster_path
-                        ? `https://image.tmdb.org/t/p/w200${film.poster_path}`
-                        : defaultImg
-                    }
-                    width={150}
-                    alt=""
-                  />
-                </div>
-                <Link to={`/movie/${film.id}`} state={{ from: location }}>
-                  {film.title}
-                </Link>
-              </li>
-            );
-          })}
-      </ul>
+      <ApiListMovies results={results} location={location} />
     </>
   );
 };

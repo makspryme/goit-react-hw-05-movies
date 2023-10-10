@@ -1,4 +1,4 @@
-import defaultImg from '../../img/default-img.jpg';
+import defaultImg from '../../../img/default-img.jpg';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Outlet, useParams, NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
@@ -35,7 +35,6 @@ const MovieDetails = () => {
   const backLinkLocationUrl = useRef(location.state?.from ?? `/movie`);
 
   const param = useParams();
-
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/movie/${param.movieId}?language=en-US&api_key=caed7e2ebd11bebde344d1e5386bdf39`
@@ -67,7 +66,7 @@ const MovieDetails = () => {
           <h3>Score: {aboutFilm.vote_average}</h3>
           <h3>Overview</h3>
           <p style={{ width: 400 }}>{aboutFilm.overview}</p>
-          <h3>Genres: {aboutFilm.genres.map(({ name }) => `${name} `)}</h3>
+          <h3>Genres: {aboutFilm.genres?.map(({ name }) => `${name} `)}</h3>
         </div>
       )}
 
